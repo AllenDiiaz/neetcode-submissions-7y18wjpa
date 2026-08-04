@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+
+        //piles = [1,4,3,2], h = 9
+
+        int left = 1;
+        int right = *max_element(piles.begin(),piles.end());
+
+        int ans = right;
+
+        while (left<=right)
+        {
+            int mid = left + (right-left) / 2;
+
+            long long total_cost = 0;
+
+            for (int banana: piles)
+            {
+                total_cost += (banana + mid - 1) / mid;
+            }
+
+            if (total_cost > h)
+            {
+                left = mid + 1;
+            } else {
+                ans = mid;
+                right = mid - 1;
+            }
+        }
+
+        return ans;
+        
+    }
+};
